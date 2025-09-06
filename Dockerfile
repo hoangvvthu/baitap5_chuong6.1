@@ -6,8 +6,9 @@ RUN mvn clean package -DskipTests
 
 FROM tomcat:11.0.10-jdk21
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=builder /chuong6.1/target/emailapp-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=builder /chuong6.1/target/EmailList.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
+
 
 
