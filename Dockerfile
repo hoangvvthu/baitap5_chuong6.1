@@ -1,10 +1,11 @@
-FROM maven:3.9.11-eclipse-temurin-21 AS builder
-WORKDIR /deployServletProject
-COPY . .
+FROM maven:3.9.8-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM tomcat:11.0.10-jdk21-corretto
+FROM tomcat:11.0.10-jdk21
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=builder /deployServletProject/target/chuong6.1-1.0.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=builder /app/target/emailapp-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
