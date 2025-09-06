@@ -4,11 +4,11 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
+# Stage 2: deploy WAR vào Tomcat 11
 FROM tomcat:11.0.10-jdk21
+# Xóa webapps mặc định
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=builder /chuong6.1/target/EmailList.war /usr/local/tomcat/webapps/ROOT.war
+# Copy WAR vừa build vào ROOT.war
+COPY --from=builder /app/target/EmailList.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
-
-
-
