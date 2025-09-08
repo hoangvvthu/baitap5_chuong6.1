@@ -17,23 +17,19 @@ public class EmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // luôn lấy năm hiện tại, set vào request (dù join hay add)
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         request.setAttribute("year", currentYear);
 
         String url = "/index.jsp";
 
-        // get current action
         String action = request.getParameter("action");
         if (action == null) {
-            action = "join"; // default action
+            action = "join";
         }
 
-        // perform action
         if (action.equals("join")) {
             url = "/index.jsp";
         } else if (action.equals("add")) {
-            // get parameters
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
@@ -55,3 +51,4 @@ public class EmailListServlet extends HttpServlet {
         doPost(request, response);
     }
 }
+
